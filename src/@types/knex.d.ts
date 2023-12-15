@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Knex } from 'knex'
 
 declare module 'knex/types/tables' {
   export interface Tables {
@@ -13,6 +12,7 @@ declare module 'knex/types/tables' {
     snacks: {
       id: string
       name: string
+      session_id: string
       description: string
       isValidDiet: boolean
       created_at: string

@@ -1,16 +1,20 @@
-import fastify from 'fastify'
-import { env } from './config/env'
-
+import type { FastifyCookieOptions } from '@fastify/cookie'
+import cookie from '@fastify/cookie'
+import { app } from './app'
 import { SnackController } from './controller/SnackController'
 import { UserController } from './controller/UserController'
+import { env } from './env'
 
-const server = fastify()
+app.register(cookie, {} as FastifyCookieOptions)
 
-server.register(UserController, { prefix: '/users' })
-server.register(SnackController, { prefix: '/snacks' })
+app.register(UserController, { prefix: '/users' })
+app.register(SnackController, { prefix: '/snacks' })
 
-server
+app
   .listen({
+    host: '0.0.0.0',
     port: env.PORT,
   })
-  .then((address) => console.log(`Server is running on ${address}`))
+  .then(() => {
+    console.log('Server is running at http://localhost:3333')
+  })
